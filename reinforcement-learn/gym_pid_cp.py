@@ -1,8 +1,8 @@
 # From - https://ethanr2000.medium.com/using-pid-to-cheat-an-openai-challenge-f17745226449
 
-import gym
+import gymnasium as gym
 from matplotlib import pyplot as plt
-env = gym.make("CartPole-v1")
+env = gym.make("CartPole-v1", render_mode="human")
 observation = env.reset()
 
 Kp = 135
@@ -14,7 +14,9 @@ integral = 0
 for _ in range(1000):
   env.render()
 
-  observation, reward, done, info = env.step(force)
+  #observation, reward, done, info = env.step(force)
+  observation, reward, terminated, truncated, info = env.step(force)
+  done = terminated or truncated
 
   velocity = observation[1]
   angle = observation[2]
